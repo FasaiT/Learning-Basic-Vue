@@ -1,3 +1,8 @@
+I want to say thank you from the bottom of my heart for this great onlice course from @KongRuksiam Official
+https://www.youtube.com/watch?v=aCDpE16MW54
+
+It's really meaningful to me.
+
 # my-app-component
 
 ## Project setup
