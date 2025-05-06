@@ -8,6 +8,12 @@
   <!-- แล้วส่ง prop ชื่อ name ไปที่ตัวแม่คือ PersonData โดยวิธีการข้างบนคือการกำหนดค่าลงไปเลย-->
 
   <ul>
+    <!-- เราสามารถกำหนดเนื้อหา Card component ให้มีความแตกต่างกันได้ โดยที่เรามีต้นแบบ ใส่ดีไซน์อะไรต่าง ๆ ให้ในไฟล์ Card.vue  -->
+    <!-- <Card> พนักงานคนที่ 1 </Card>
+    <Card> พนักงานคนที่ 2 </Card>
+    <Card> พนักงานคนที่ 3 </Card> -->
+    <!-- ต่อมาเราทำการคอมเม้นท์ <Card> พนักงานคนที่ ... </Card> ทิ้ง เพราะที่ไฟล์ PersonData มีการนำ <Card> ไปใช้ แล้วให้ข้อมูลที่อยู่ในแท็ก <Card> นั้นแสดงผลแทน-->
+
     <!-- วิธีข้างล่างนี้เป็นการแสดงข้อมูลทั้งหมด **ห้ามลืมระบุ :key="index" ตอนเราใช้ v-forลูปข้อมูล
         -item คือสมาชิกแต่ละตัวที่อยู่ใน employees .name คือเราเอาค่าชื่อออกมา-->
     <!-- <PersonData
@@ -30,6 +36,7 @@
       :department="item.department"
       :isVisible="item.isVisible"
       @show="toggleVisible"
+      @delete="removeEmployee"
     />
     <!-- @show="toggleVisible" คือรับอีเว้นท์ show มาจากลูก และเรียกใช้ methods toggleVisible ด้านล่าง-->
   </ul>
@@ -38,7 +45,6 @@
 <script>
 // import Person component มาใช้งาน
 import PersonData from "./PersonData.vue";
-
 //สร้าง Component และ export ไปใช้งานที่ root component
 export default {
   name: "ListData",
@@ -97,14 +103,20 @@ export default {
   methods: {
     toggleVisible(id) {
       // console.log("Child ID = ", id);
-      //map 
+      //map
       this.employees = this.employees.map((item) => {
         //ตรวจสอบว่า ถ้าไอดีที่ส่งมา มีค่าตรงกันกับไอดีที่รับมา
         if (item.id === id) {
           //ให้มีการเปลี่ยนแปลง isVisible ตามค่าไอดีตัวที่ส่งมา
-          return {...item, isVisible: !item.isVisible}
+          return { ...item, isVisible: !item.isVisible };
         }
-        return item
+        return item;
+      });
+    },
+    removeEmployee(id) {
+      this.employees = this.employees.filter((item) => {
+        //ไอเทมที่มีไอดีไม่ตรงกันกับไอดีที่ส่งมา จะให้คงสภาพเอาไว้
+        return item.id !== id;
       });
     },
   },
