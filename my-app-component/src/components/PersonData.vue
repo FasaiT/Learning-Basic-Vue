@@ -6,16 +6,21 @@
     <template v-slot:card-header>
       <h1>{{ name }}</h1>
     </template>
-    <template v-slot:card-button>
+    <!-- <template v-slot:card-button>
       <button @click="showDescription(id)">ดูรายละเอียด</button> &nbsp;
       <button @click="deleteEmployee(id)">ลบข้อมูล</button>
-    </template>
-    <template v-slot:card-content>
+    </template> -->
+    <!-- <template v-slot:card-content>
       <transition name="fade">
         <div v-show="isVisible">
           <p>เงินเดือน : {{ salary }} ตำแหน่งงาน : {{ department }}</p>
         </div>
       </transition>
+    </template> -->
+    <template v-slot:card-content>
+      <p>เพศ : {{ gender }} เงินเดือน : {{ salary }}</p>
+      <p>ตำแหน่งงาน : {{ department }}</p>
+      <p>ทักษะด้านภาษา : {{ skill }}</p>
     </template>
   </Card>
   <!-- พื้นที่ที่อยู่ใน Card นี้ก็คือ <slot></slot> ซึ่งจะถูกแทนที่ทั้งหมดภายใต้สิ่งที่อยู่ใน <Card> -->
@@ -41,9 +46,9 @@ export default {
     Card, //ประกาศใช้ Card ที่เรา import เข้ามา ห้ามลืม ไม่งั้นใช้งานไม่ได้
   },
   props: {
-    id: {
-      type: Number,
-    },
+    // id: {
+    //   type: Number,
+    // },
     name: {
       type: String,
       required: true, //บังคับกรอกค่า
@@ -56,19 +61,27 @@ export default {
       type: String,
       required: true,
     },
-    isVisible: {
-      type: Boolean,
+    // isVisible: {
+    //   type: Boolean,
+    // },
+
+    // เพิ่มเข้ามาตอนหลัง รับมาจาก ListData.vue
+    gender: {
+      type: String,
+    },
+    skill: {
+      type: Array,
     },
   },
   methods: {
-    showDescription(id) {
-      // $emit คือการส่งสัญญาณจากตัวลูกไปหาแม่ในรูปแบบของอีเว้นท์ ในที่นี้กำหนดค่าเป็น "show" และส่งข้อมูลก็คือ id ไปด้วย
-      // ซึ่งข้อมูลพวกนี้จะส่งไปที่ไฟล์ LisData.vue
-      this.$emit("show", id);
-    },
-    deleteEmployee(id) {
-      this.$emit("delete", id);
-    },
+    // showDescription(id) {
+    //   // $emit คือการส่งสัญญาณจากตัวลูกไปหาแม่ในรูปแบบของอีเว้นท์ ในที่นี้กำหนดค่าเป็น "show" และส่งข้อมูลก็คือ id ไปด้วย
+    //   // ซึ่งข้อมูลพวกนี้จะส่งไปที่ไฟล์ ListData.vue
+    //   this.$emit("show", id);
+    // },
+    // deleteEmployee(id) {
+    //   this.$emit("delete", id);
+    // },
   },
 };
 </script>
